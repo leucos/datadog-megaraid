@@ -1,0 +1,6 @@
+init_config:
+  megacli_path: /usr/sbin/megacli
+
+instances:
+  - adapter: ALL
+
