@@ -51,6 +51,8 @@ The following events are also reported:
 - Drive has flagged a S.M.A.R.T alert (when megacli reports 'Yes')
 - Firmware state (when 'Online' or 'Spun Up' are not found in firmware report)
 
+They can be disabled with the `disk_events` config flag (globally, or per-instance).
+
 # Misc
 
 See the accompanying [megaraid](https://github.com/leucos/ansible-megaraid) and [datadog-agent](https://github.com/leucos/ansible-datadog-agent) Ansible roles.

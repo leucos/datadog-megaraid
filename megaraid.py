@@ -115,13 +115,13 @@ class Megaraid(AgentCheck):
         if disk == None:
             # We have an adapter event
             # We return if we don't need to send them
-            if ! send_adapter_events:
+            if not send_adapter_events:
                 return
             device =  'megaraid#%s' % adapter
         else:
             # We have a disk event
             # We return if we don't need to send them
-            if ! send_disk_events:
+            if not send_disk_events:
                 return
             device =  'megaraid/%s/%s' % (adapter, current_disk)
 
