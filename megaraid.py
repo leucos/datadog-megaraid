@@ -79,7 +79,7 @@ class Megaraid(AgentCheck):
                 disks[adapter][current_disk]['temperature'] = int(line.split(':')[1].split('C')[0])
                 self.log.debug("Got temp %s for disk 'megaraid/%s/%s'" % (disks[adapter][current_disk]['temperature'], adapter, current_disk))
             elif line.startswith('Firmware state'):
-                if "Online" not in line or "Spun Up" not in line:
+                if ("Online" not in line and "Hotspare" not in line) or ("Spun Up" not in line):
                     self.send_megaraid_alert('Abnormal firmware state %s on megaraid/%s/%s' % ( line.split(':')[1], adapter, current_disk ), adapter, current_disk)
                     disks[adapter][current_disk]['firmware_ok'] = 0
                 else:
