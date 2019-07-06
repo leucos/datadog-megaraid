@@ -110,7 +110,7 @@ class Megaraid(AgentCheck):
 
     def send_megaraid_alert(self, text, adapter, disk=None):
         send_adapter_events = int(instance.get('adapter_events', self.init_config.get('adapter_events', 0)))
-        send_disks_events   = int(instance.get('adapter_events', self.init_config.get('adapter_events', 0)))
+        send_disk_events   = int(instance.get('adapter_events', self.init_config.get('adapter_events', 0)))
 
         if disk == None:
             # We have an adapter event
@@ -123,7 +123,7 @@ class Megaraid(AgentCheck):
             # We return if we don't need to send them
             if not send_disk_events:
                 return
-            device =  'megaraid/%s/%s' % (adapter, current_disk)
+            device =  'megaraid/%s/%s' % (adapter, disk)
 
         aggregation_key = md5(device).hexdigest()
 
