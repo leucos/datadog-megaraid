@@ -36,7 +36,7 @@ class Megaraid(AgentCheck):
                     adapters[current_adapter]['state'] = 1
                 else:
                     adapters[current_adapter]['state'] = 0
-                    self.send_megaraid_alert('Adapter %s state is not optimal: %s' % (current_adapter, adapters[current_adapter]['state']), current_adapter)
+                    self.send_megaraid_alert(instance, 'Adapter %s state is not optimal: %s' % (current_adapter, adapters[current_adapter]['state']), current_adapter)
 
                 self.gauge('megaraid.adapter.status', adapters[current_adapter]['state'], tags=['megaraid'])
 
@@ -80,7 +80,7 @@ class Megaraid(AgentCheck):
                 self.log.debug("Got temp %s for disk 'megaraid/%s/%s'" % (disks[adapter][current_disk]['temperature'], adapter, current_disk))
             elif line.startswith('Firmware state'):
                 if "Online" not in line or "Spun Up" not in line:
-                    self.send_megaraid_alert('Abnormal firmware state %s on megaraid/%s/%s' % ( line.split(':')[1], adapter, current_disk ), adapter, current_disk)
+                    self.send_megaraid_alert(instance, 'Abnormal firmware state %s on megaraid/%s/%s' % ( line.split(':')[1], adapter, current_disk ), adapter, current_disk)
                     disks[adapter][current_disk]['firmware_ok'] = 0
                 else:
                     disks[adapter][current_disk]['firmware_ok'] = 1
@@ -108,7 +108,7 @@ class Megaraid(AgentCheck):
             'msg_text': text
         })
 
-    def send_megaraid_alert(self, text, adapter, disk=None):
+    def send_megaraid_alert(self, instance, text, adapter, disk=None):
         send_adapter_events = int(instance.get('adapter_events', self.init_config.get('adapter_events', 0)))
         send_disks_events   = int(instance.get('adapter_events', self.init_config.get('adapter_events', 0)))
 
