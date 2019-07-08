@@ -74,7 +74,7 @@ class Megaraid(AgentCheck):
                     disks[adapter][current_disk]['smart_alert'] = 0
                 else:
                     disks[adapter][current_disk]['smart_alert'] = 1                   
-                    self.send_megaraid_disk_alert('SMART Alert on disk megaraid/%s/%s', (adapter, disk), adapter, disk)
+                    self.send_megaraid_alert(instance,'SMART Alert on disk megaraid/%s/%s', (adapter, disk), adapter, disk)
             elif line.startswith('Drive Temperature'):
                 disks[adapter][current_disk]['temperature'] = int(line.split(':')[1].split('C')[0])
                 self.log.debug("Got temp %s for disk 'megaraid/%s/%s'" % (disks[adapter][current_disk]['temperature'], adapter, current_disk))
