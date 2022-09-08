@@ -23,7 +23,8 @@ class Megaraid(AgentCheck):
         process = Popen(shlex.split(cmd), stdout=PIPE, close_fds=True)
         (output, err) = process.communicate()
         exit_code = process.wait()
-        output = output.decode("utf-8")
+        output = output.decode("utf-8") # converts bytes obj to str
+        
         adapters = dict()
         if exit_code != 0:
             self.log.error("Got exit code %s for command '%s' and output %s" % (exit_code, cmd, output))
@@ -34,7 +35,7 @@ class Megaraid(AgentCheck):
 
         for line in output.split('\n'):
             if line.startswith('Adapter'):
-                current_adapter = str(line.split(' ')[1])
+                current_adapter = line.split(' ')[1]
                 adapters['0'] = dict()
             if line.startswith('State'):
                 if 'Optimal' in line:
@@ -51,7 +52,7 @@ class Megaraid(AgentCheck):
         process = Popen(shlex.split(cmd), stdout=PIPE, close_fds=True)
         (output, err) = process.communicate()
         exit_code = process.wait()
-        output = output.decode("utf-8")
+        output = output.decode("utf-8") # converts bytes obj to str
 
         disks = dict()
 
