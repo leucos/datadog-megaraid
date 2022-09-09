@@ -38,7 +38,7 @@ class Megaraid(AgentCheck):
                 current_adapter = line.split(' ')[1]
                 adapters['0'] = dict()
             if line.startswith('State'):
-                if 'Optimal' in line:
+                if "Optimal" in line:
                     adapters[current_adapter]['state'] = 1
                 else:
                     adapters[curent_adapter]['state'] = 0
