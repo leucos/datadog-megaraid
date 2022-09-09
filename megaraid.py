@@ -41,7 +41,7 @@ class Megaraid(AgentCheck):
                 if "Optimal" in line:
                     adapters[current_adapter]['state'] = 1
                 else:
-                    adapters[curent_adapter]['state'] = 0
+                    adapters[current_adapter]['state'] = 0
                     self.send_megaraid_alert(instance, 'Adapter %s state is not optimal: %s' % (current_adapter, adapters[current_adapter]['state']), current_adapter)
 
                 self.gauge('megaraid.adapter.status', adapters[current_adapter]['state'], tags=['megaraid'])
